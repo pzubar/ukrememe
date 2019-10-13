@@ -1,6 +1,11 @@
 export default {
   items: [
     {
+      name: 'Нова стаття',
+      url: '/articles/new',
+      icon: 'icon-pencil',
+    },
+    {
       name: 'Dashboard',
       url: '/dashboard',
       icon: 'icon-speedometer',

@@ -22,7 +22,7 @@ import routes from '../../routes';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
-const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
+const DefaultHeader = React.lazy(() => import('./Header'));
 
 class DefaultLayout extends Component {
 
@@ -63,6 +63,7 @@ class DefaultLayout extends Component {
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
+                        history={this.props.history}
                         render={props => (
                           <route.component {...props} />
                         )} />
