@@ -18,7 +18,6 @@ const ArticleEditor = (props) => {
     const categories = categoriesList.map(({id}) => id);
 
     // TODO: IMPLEMENT func to fetch to db OR create another container for editor (mb second is best)
-    // processCategories(categoriesList);
 
     db.collection("articles").doc(title).set({
       text: htmlContent,
@@ -26,13 +25,11 @@ const ArticleEditor = (props) => {
     })
       .then(function () {
         console.log("Document successfully written!");
-        props.history.push('/')
+        props.history.push('/home')
       })
       .catch(function (error) {
         console.error("Error writing document: ", error);
       });
-    debugger;
-    console.log(htmlContent);
   };
 
   const onTitleChange = ({target}) => {
@@ -48,7 +45,6 @@ const ArticleEditor = (props) => {
           // console.log(doc.id, " => ", doc.data());
           allCategories.push({id: doc.id, name: doc.id})
         });
-        console.log(allCategories);
         setAllCategories(allCategories)
       })
       .catch(function (error) {
@@ -93,6 +89,7 @@ const ArticleEditor = (props) => {
                   suggestions={allCategories}
                   handleDelete={handleDelete}
                   handleAddition={handleAddition}
+                  autofocus={false}
                 />
               </div>
             </CardBody>
@@ -101,8 +98,6 @@ const ArticleEditor = (props) => {
             </Button>
           </Card>
         </Col>
-
-
         <Col xs="12" sm="6">
           <Card>
             <CardHeader>

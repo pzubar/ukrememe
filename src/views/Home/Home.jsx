@@ -1,55 +1,32 @@
-import React, {Component} from 'react';
-import {convertToRaw} from 'draft-js';
-import {Editor} from 'react-draft-wysiwyg';
-import draftToMarkdown from 'draftjs-to-markdown';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import {Button, Card, CardBody, CardHeader, Col, Row} from "reactstrap";
+import React, {Component, useState, useEffect} from 'react';
+import {Card, CardBody, Col, Row} from "reactstrap";
 
-class EditorConvertToMarkdown extends Component {
-  state = {
-    editorState: undefined,
-  };
+const Home = () => {
+  const [articlesNumber, setArticlesNumber] = useState(0);
+  const [categoriesNumber, setCategoriesNumber] = useState(0);
 
-  onEditorStateChange = (editorState) => {
-    this.setState({
-      editorState,
-    });
-  };
+  return (
+    <div className="animated fadeIn">
+      <Row style={{marginTop: 20}}>
+        <Col xs="12" sm="6" lg="6">
+          <Card className="text-white bg-info">
+            <CardBody>
+              <div className="text-value">{articlesNumber}</div>
+              <div>Статей</div>
+            </CardBody>
+          </Card>
+        </Col>
+        <Col xs="12" sm="6" lg="6">
+          <Card className="text-white bg-primary">
+            <CardBody>
+              <div className="text-value">{categoriesNumber}</div>
+              <div>Категорій</div>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
-  render() {
-    const {editorState} = this.state;
-    return (
-      <div className="animated fadeIn">
-        <Row>
-          <Col xs="12">
-            <Card>
-              <CardHeader>
-                Card title
-              </CardHeader>
-              <CardBody>
-                <Editor
-                  wrapperClassName="demo-wrapper"
-                  editorClassName="demo-editor"
-                  onEditorStateChange={this.onEditorStateChange}
-                />
-                <textarea
-                  disabled
-                  value={editorState && draftToMarkdown(convertToRaw(editorState.getCurrentContent()))}
-                />
-              </CardBody>
-            </Card>
-            <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <Button block color="primary" onClick={() => {
-                debugger;
-                const a = this.state;
-
-              }}>Save</Button>
-            </Col>
-          </Col>
-        </Row>
-      </div>
-    );
-  }
-}
-
-export default EditorConvertToMarkdown;
+export default Home;

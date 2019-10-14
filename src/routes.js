@@ -2,6 +2,8 @@ import React from 'react';
 
 const Home = React.lazy(() => import('./views/Home'));
 const Editor = React.lazy(() => import('./views/Editor'));
+const Categories = React.lazy(() => import('./views/Categories'));
+
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
 const Carousels = React.lazy(() => import('./views/Base/Carousels'));
@@ -40,8 +42,9 @@ const User = React.lazy(() => import('./views/Users/User'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  { path: '/', exact: true, name: 'Home', component: Home },
+  { path: '/', exact: true, name: 'Головна', component: Home },
   { path: '/articles/new', exact: true, name: 'Нова стаття', component: Editor },
+  { path: '/categories', exact: true, name: 'Категорії', component: Categories },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
