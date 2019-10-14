@@ -92,10 +92,13 @@ const ArticleEditor = (props) => {
                   autofocus={false}
                 />
               </div>
+              <Row>
+                <Button block color="primary" disabled={!title || !editorState} onClick={onSaveButtonClick}>
+                  Зберегти
+                </Button>
+              </Row>
             </CardBody>
-            <Button block color="primary" disabled={!title || !editorState} onClick={onSaveButtonClick}>
-              Зберегти
-            </Button>
+
           </Card>
         </Col>
         <Col xs="12" sm="6">
