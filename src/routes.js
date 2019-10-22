@@ -43,7 +43,7 @@ const User = React.lazy(() => import('./views/Users/User'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  {path: '/', exact: true, name: 'Головна', component: Home},
+  {path: '/home', exact: true, name: 'Головна', component: Home},
   {path: '/articles/new', exact: true, name: 'Нова стаття', component: Editor},
   {path: '/article/:name', exact: true, name: 'Стаття', component: Article},
   {path: '/categories', exact: true, name: 'Категорії', component: Categories},

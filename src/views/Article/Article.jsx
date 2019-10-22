@@ -8,7 +8,6 @@ const Article = ({match}) => {
   const [text, setText] = useState('');
 
   useEffect(() => {
-    debugger;
     db.collection("articles")
       .doc(name)
       .get()

@@ -6,6 +6,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import ReactTags from 'react-tag-autocomplete'
 import db from '../../models/db.js'
+import embed from "embed-video";
 
 const ArticleEditor = (props) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
@@ -42,7 +43,6 @@ const ArticleEditor = (props) => {
       .then(function (querySnapshot) {
         const allCategories = [];
         querySnapshot.forEach(function (doc) {
-          // console.log(doc.id, " => ", doc.data());
           allCategories.push({id: doc.id, name: doc.id})
         });
         setAllCategories(allCategories)
@@ -78,11 +78,25 @@ const ArticleEditor = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
-              <Editor
-                wrapperClassName="demo-wrapper"
-                editorClassName="article-editor"
-                onEditorStateChange={setEditorState}
-              />
+              <FormGroup>
+                <Label htmlFor="name">Текст</Label>
+                <Editor
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="article-editor"
+                  onEditorStateChange={setEditorState}
+                  toolbar={{
+                    link: {
+                      linkCallback: params => ({...params})
+                    },
+                    embedded: {
+                      embedCallback: link => {
+                        const detectedSrc = /<iframe.*? src="(.*?)"/.exec(embed(link));
+                        return (detectedSrc && detectedSrc[1]) || link;
+                      }
+                    }
+                  }}
+                />
+              </FormGroup>
               <div>
                 <ReactTags
                   tags={categoriesList}
@@ -90,6 +104,7 @@ const ArticleEditor = (props) => {
                   handleDelete={handleDelete}
                   handleAddition={handleAddition}
                   autofocus={false}
+                  placeholder={'Додати категорію'}
                 />
               </div>
               <Row>
@@ -98,11 +113,10 @@ const ArticleEditor = (props) => {
                 </Button>
               </Row>
             </CardBody>
-
           </Card>
         </Col>
         <Col xs="12" sm="6">
-          <Card>
+          <Card className={"result-card"}>
             <CardHeader>
               Результат
             </CardHeader>
