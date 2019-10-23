@@ -9,16 +9,16 @@ const Home = (props) => {
   const [articlesList, setArticlesList] = useState([]);
 
   useEffect(() => {
-    db.collection("articles").get().then(function(querySnapshot) {
-      const result = [];
-      debugger;
-      querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, " => ", doc.data());
-        result.push({title: doc.id, data: doc.data()})
-      });
-      setArticlesList(result);
-    });
+    // db.collection("articles").get().then(function(querySnapshot) {
+    //   const result = [];
+    //   debugger;
+    //   querySnapshot.forEach(function(doc) {
+    //     // doc.data() is never undefined for query doc snapshots
+    //     // console.log(doc.id, " => ", doc.data());
+    //     result.push({title: doc.id, data: doc.data()})
+    //   });
+    //   setArticlesList(result);
+    // });
   }, []);
 
   return (
