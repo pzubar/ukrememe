@@ -1,4 +1,4 @@
-import db from './db'
+  import db from './db'
 
 const getPublications = () => {
   const citiesRef = db.collection("articles").where("categories", "array-contains", "Володимир Зеленський");
