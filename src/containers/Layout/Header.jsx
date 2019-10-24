@@ -22,9 +22,11 @@ class DefaultHeader extends Component {
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile/>
-        <AppNavbarBrand>
-          Logo!
-        </AppNavbarBrand>
+        <Link to={'/'}>
+        <AppNavbarBrand
+          full={{ src: logo, width: 89, height: 25, alt: 'UMM Logo' }}
+        />
+        </Link>
         <AppSidebarToggler className="d-md-down-none" display="lg"/>
 {/*<div>*/}
 {/*        <Nav className="d-md-down-none" navbar>*/}

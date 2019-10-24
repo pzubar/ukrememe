@@ -1,5 +1,5 @@
 const firebase = require("firebase");
-// Required for side-effects
+require("firebase/database");
 require("firebase/firestore");
 
 const firebaseConfig = {
@@ -15,6 +15,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const db = firebase.firestore();
+export const database = firebase.database();
 
-export default db;
+export default  firebase.firestore();

@@ -6,6 +6,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import ReactTags from 'react-tag-autocomplete'
 import db from '../../models/db.js'
+import {database} from "../../models/db";
 import embed from "embed-video";
 
 const ArticleEditor = (props) => {
@@ -26,6 +27,13 @@ const ArticleEditor = (props) => {
     })
       .then(function () {
         console.log("Document successfully written!");
+        database.ref(`/articles/${title}`).set(true);
+        categories.forEach(category => {
+          const ref = database.ref(`/categories/${category}/count`);
+          ref.transaction(function(current) {
+            return current+ 1;
+          });
+        });
         props.history.push('/home')
       })
       .catch(function (error) {
