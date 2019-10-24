@@ -16,15 +16,15 @@ export default {
       url: '/categories',
       icon: 'icon-puzzle',
     },
-    {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
+    // {
+    //   name: 'Dashboard',
+    //   url: '/dashboard',
+    //   icon: 'icon-speedometer',
+    //   badge: {
+    //     variant: 'info',
+    //     text: 'NEW',
+    //   },
+    // },
     // {
     //   title: true,
     //   name: 'Theme',
@@ -166,11 +166,11 @@ export default {
     //     },
     //   ],
     // },
-    {
-      name: 'Charts',
-      url: '/charts',
-      icon: 'icon-pie-chart',
-    },
+    // {
+    //   name: 'Charts',
+    //   url: '/charts',
+    //   icon: 'icon-pie-chart',
+    // },
     // {
     //   name: 'Icons',
     //   url: '/icons',
