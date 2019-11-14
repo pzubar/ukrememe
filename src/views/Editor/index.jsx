@@ -20,19 +20,22 @@ const ArticleEditor = (props) => {
     const categories = categoriesList.map(({id}) => id);
 
     // TODO: IMPLEMENT func to fetch to db OR create another container for editor (mb second is best)
-
-    db.collection("articles").doc(title).set({
-      text: htmlContent,
-      categories: categoriesList.length ? categories : undefined
-    })
+    const data = {text: htmlContent};
+    if (categoriesList.length)
+      data.categories = categories;
+    db.collection("articles").doc(title).set(data)
       .then(function () {
         console.log("Document successfully written!");
-        database.ref(`/articles/${title}`).set(true);
+        database.ref(`/articles/titles/${title}`).set(true);
         categories.forEach(category => {
           const ref = database.ref(`/categories/${category}/count`);
-          ref.transaction(function(current) {
-            return current+ 1;
+          ref.transaction(function (current) {
+            return current + 1;
           });
+        });
+        const ref = database.ref(`/articles/count`);
+        ref.transaction(function (current) {
+          return current + 1;
         });
         props.history.push('/home')
       })
