@@ -87,28 +87,28 @@ const Home = () => {
     }]
   };
   useEffect(() => {
-    database.ref('/').once('value').then(function (snapshot) {
-      const {articles, categories} = snapshot.val();
-      const {titles, count} = articles;
-      const titlesList = Object.keys(titles);
-      const randomTitle = titlesList[Math.floor(Math.random() * titlesList.length)];
-
-      db.collection("articles")
-        .doc(randomTitle)
-        .get()
-        .then(function (doc) {
-          if (doc.exists) {
-            console.log("Document data:", doc.data());
-            const {text, categories} = doc.data();
-
-            setRandomArticle({title: randomTitle, text, categories})
-          } else {
-            console.log("No such document!");
-          }
-        });
-      setCategoriesNumber(Object.keys(categories).length);
-      setArticlesList(Object.keys(titles))
-    });
+    // database.ref('/').once('value').then(function (snapshot) {
+    //   const {articles, categories} = snapshot.val();
+    //   const {titles, count} = articles;
+    //   const titlesList = Object.keys(titles);
+    //   const randomTitle = titlesList[Math.floor(Math.random() * titlesList.length)];
+    //
+    //   db.collection("articles")
+    //     .doc(randomTitle)
+    //     .get()
+    //     .then(function (doc) {
+    //       if (doc.exists) {
+    //         console.log("Document data:", doc.data());
+    //         const {text, categories} = doc.data();
+    //
+    //         setRandomArticle({title: randomTitle, text, categories})
+    //       } else {
+    //         console.log("No such document!");
+    //       }
+    //     });
+    //   setCategoriesNumber(Object.keys(categories).length);
+    //   setArticlesList(Object.keys(titles))
+    // });
     const {articles, categories} = test;
     // debugger;
     setArticlesList(Object.keys(articles.titles));
