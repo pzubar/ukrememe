@@ -40,8 +40,7 @@ const Categories = () => {
         <Col xs="12" sm="6">
           <Card>
             <CardHeader>
-              <strong>Credit Card</strong>
-              <small> Form</small>
+              <strong>Нова категорія</strong>
             </CardHeader>
             <CardBody>
               <Row>

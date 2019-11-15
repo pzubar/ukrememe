@@ -1,7 +1,5 @@
 import React, {Component, useState, useEffect, useMemo} from 'react';
 import {Card, CardBody, CardColumns, CardHeader, Col, Row} from "reactstrap";
-import React, {Component, useState, useEffect} from 'react';
-import {Badge, Button, Card, CardBody, CardColumns, CardHeader, Col, Progress, Row, Table} from "reactstrap";
 import db from '../../models/db.js'
 import {Link} from 'react-router-dom';
 import {database} from "../../models/db";
@@ -244,29 +242,29 @@ const Home = () => {
               </div>
             </CardBody>
           </Card>
-        <Col xs="12" sm="6" lg="6">
-          <Card>
-            <CardHeader>
-              Bar Chart
-              <div className="card-header-actions">
-                <a href="http://www.chartjs.org" className="card-header-action">
-                  <small className="text-muted">docs</small>
-                </a>
-              </div>
-            </CardHeader>
-            <CardBody>
-              <div className="chart-wrapper">
-                <Bar data={bar} options={options}/>
-              </div>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col xs="12" sm="6" lg="6">
-
-          <HighchartsReact
-            highcharts={Highcharts}
-            options={periodsOptions}
-          />
+          <Col xs="12" sm="6" lg="6">
+            <Card>
+              <CardHeader>
+                Bar Chart
+                <div className="card-header-actions">
+                  <a href="http://www.chartjs.org" className="card-header-action">
+                    <small className="text-muted">docs</small>
+                  </a>
+                </div>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-wrapper">
+                  <Bar data={bar} options={options}/>
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col xs="12" sm="6" lg="6">
+            <HighchartsReact
+              highcharts={Highcharts}
+              options={periodsOptions}
+            />
+          </Col>
         </Col>
       </Row>
     </div>
