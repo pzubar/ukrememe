@@ -8,7 +8,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from "highcharts-react-official";
 import {Bar, Line} from "react-chartjs-2";
 import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips";
-
+import ArticleComponent from "../Article/ArticleComponent";
 const bar = {
   labels: ['Петро Порошенко', 'Володимир Зеленський', 'Олег Ляшко', 'Геннадій Кернес', 'Геннадій Москаль', 'Михайло Добкін', 'Юлія Тимошенко'],
   datasets: [
@@ -191,26 +191,13 @@ const Home = () => {
       {randomArticle &&
       <Row>
         <Col>
-          <Card>
-            <CardHeader>
-              Випадкова стаття
-            </CardHeader>
-            <CardBody>
-              <h2>{randomArticle.title}</h2>
-              {randomArticle.categories && randomArticle.categories.length &&
-              <>
-                <div>
-                  <b>Категорії:</b> {randomArticle.categories.map(cat => <span style={{paddingRight: 5}}>#{cat}</span>)}
-                </div>
-                <div dangerouslySetInnerHTML={{__html: randomArticle.text}}/>
-              </>
-              }
-            </CardBody>
-          </Card>
+          <p><b>Випадкова стаття</b></p>
         </Col>
-        <div>
-          {/*{articlesList.map(article => <div><Link to={`/article/${article}`}>{article}</Link></div>)}*/}
-        </div>
+        <Col>
+          <ArticleComponent
+            {...randomArticle}
+          />
+        </Col>
       </Row>
       }
       <Row>
@@ -220,7 +207,7 @@ const Home = () => {
               Список статей:
             </CardHeader>
             <CardBody style={{columnCount: 3}}>
-              {articlesList.map(article => <div><Link to={`/article/${article}`}>{article}</Link></div>)}
+              {articlesList.map(article => <div className={"article-link"}><Link to={`/article/${article}`}>{article}</Link></div>)}
             </CardBody>
           </Card>
         </Col>
