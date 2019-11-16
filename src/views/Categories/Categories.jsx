@@ -1,47 +1,34 @@
 import React, {useEffect, useState} from 'react'
-import db from '../../models/db.js'
 import {Button, Card, CardBody, CardHeader, Col, FormGroup, Input, Label, Row} from "reactstrap";
+import {Link} from "react-router-dom";
+
+import db from '../../models/db.js'
 import {database} from "../../models/db";
 
 const Categories = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const [categories, setCategories] = useState([]);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newCategoryType, setNewCategoryType] = useState('');
 
   useEffect(() => {
-    // db.collection("categories")
-    //   .get()
-    database.ref('/categories/').once('value').then((querySnapshot) => {
-      debugger;
-      const categories = {};
-      querySnapshot.forEach(function (childSnapshot) {
-        const name = childSnapshot.key;
-        const {count, type} = childSnapshot.val();
-        const category = {name, count};
-        // debugger;
-        // if (count) {
-        // if (allCategories[type])
-        // debugger;
-        if (categories.type)
-          debugger;
-        categories[type] = categories[type] ? [...categories[type], category] : category;
-        // allCategories.push({name, count, ...rest})
-        // }
-
-      });
-      debugger;
-      // const categoriesCountMap = allCategories.reduce((acc, {type, count, name}) => {
-      //   return {
-      //     ...acc,
-      //     [type]: acc[type] ? [...acc[type], `${name}: (${count})`] : [`${name}: (${count})`]
-      //   }
-      // }, {});
-      // debugger;
-      setCategories(categories)
-    })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
-      });
+    // database.ref('/categories/').once('value').then((querySnapshot) => {
+    //   debugger;
+    //   const categories = {};
+    //   querySnapshot.forEach(function (childSnapshot) {
+    //     const name = childSnapshot.key;
+    //     const {count = 0, type} = childSnapshot.val();
+    //     const category = {name, count};
+    //
+    //     categories[type] = categories[type] ? [...categories[type], category] : [category];
+    //   });
+    //   debugger;
+    //   setIsLoaded(true);
+    //   setCategories(categories)
+    // })
+    //   .catch(function (error) {
+    //     console.log("Error getting documents: ", error);
+    //   });
   }, []);
 
   const onSaveButtonClick = () => {
@@ -56,7 +43,6 @@ const Categories = () => {
             : [{name: newCategoryName, count: 0}]
         };
         setCategories(newCategories);
-        // setCategories([...categories, {type: newCategoryType, name: newCategoryName}]);
         setNewCategoryName('');
         setNewCategoryType('');
       })
@@ -72,12 +58,16 @@ const Categories = () => {
               <strong>Категорії</strong>
             </CardHeader>
             <CardBody>
+              {!isLoaded && "Завантаження..."}
               {Object.keys(categories).map(type => (
                 <div>
-                  <h6>{type}:</h6>
+                  <h5>{type}:</h5>
                   <div className="">
                     {categories[type].map(({name, count}) => (
-                      <span><b>{name}:</b> {count}</span>
+                      <>
+                        <Link to={`/categories/${name}`}><b>{name}:</b> {count}</Link>
+                        <br/>
+                      </>
                     ))}
                   </div>
                 </div>

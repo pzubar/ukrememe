@@ -4,6 +4,7 @@ const Home = React.lazy(() => import('./views/Home'));
 const Editor = React.lazy(() => import('./views/Editor'));
 const Categories = React.lazy(() => import('./views/Categories'));
 const Article = React.lazy(() => import('./views/Article'));
+const Category = React.lazy(() => import('./views/Category'));
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -45,7 +46,9 @@ const User = React.lazy(() => import('./views/Users/User'));
 const routes = [
   {path: '/home', exact: true, name: 'Головна', component: Home},
   {path: '/articles/new', exact: true, name: 'Нова стаття', component: Editor},
-  {path: '/article/:name', exact: true, name: 'Стаття', component: Article},
+  {path: '/articles/:name/edit', exact: true, name: 'Нова стаття', component: Editor},
+  {path: '/article/:name', name: 'Стаття', component: Article},
+  {path: '/categories/:name', exact: true, component: Category},
   {path: '/categories', exact: true, name: 'Категорії', component: Categories},
   {path: '/dashboard', name: 'Dashboard', component: Dashboard},
   {path: '/theme', exact: true, name: 'Theme', component: Colors},
