@@ -9,36 +9,13 @@ import HighchartsReact from "highcharts-react-official";
 import {Bar, Line} from "react-chartjs-2";
 import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import ArticleComponent from "../Article/ArticleComponent";
-const bar = {
-  labels: ['Петро Порошенко', 'Володимир Зеленський', 'Олег Ляшко', 'Геннадій Кернес', 'Геннадій Москаль', 'Михайло Добкін', 'Юлія Тимошенко'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,1)',
-      borderWidth: 1,
-      height: 500,
-      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-      hoverBorderColor: 'rgba(255,99,132,1)',
-      data: [65, 59, 80, 81, 56, 55, 40],
-    },
-  ],
-};
-
-const options = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false
-}
+import Analytics from "./Analytics";
 
 const Home = () => {
-  const [categoriesNumber, setCategoriesNumber] = useState(0);
   const [articlesList, setArticlesList] = useState([]);
   const [randomArticle, setRandomArticle] = useState(null);
-
-  const [categoriesList, setCategories] = useState([]);
+  const [categoriesList, setCategories] = useState({});
+  const categoriesNumber = useMemo(() => Object.keys(categoriesList).length, [categoriesList]);
   const articlesNumber = useMemo(() => articlesList.length, [articlesList]);
   const persons = useMemo(() =>
       Object.entries(categoriesList).filter(([, {count, type}]) => count && type === "Персони"),
@@ -46,74 +23,34 @@ const Home = () => {
   const events = useMemo(() =>
       Object.entries(categoriesList).filter(([, {count, type}]) => count && type === "Події"),
     [categoriesList]);
-  const periodsOptions = {
-    chart: {
-      plotBackgroundColor: null,
-      plotBorderWidth: null,
-      plotShadow: false,
-      type: 'pie'
-    },
-    title: {
-      text: 'Періодизація мемів'
-    },
-    tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-        }
-      }
-    },
-    series: [{
-      name: 'Brands',
-      colorByPoint: true,
-      data: [{
-        name: 'Десяті',
-        y: 61.41,
-        sliced: true,
-        selected: true
-      }, {
-        name: 'Нульові',
-        y: 11.84
-      }, {
-        name: "Девя'ності",
-        y: 10.85
-      }]
-    }]
-  };
+
   useEffect(() => {
-    // database.ref('/').once('value').then(function (snapshot) {
-    //   const {articles, categories} = snapshot.val();
-    //   const {titles, count} = articles;
-    //   const titlesList = Object.keys(titles);
-    //   const randomTitle = titlesList[Math.floor(Math.random() * titlesList.length)];
-    //
-    //   db.collection("articles")
-    //     .doc(randomTitle)
-    //     .get()
-    //     .then(function (doc) {
-    //       if (doc.exists) {
-    //         console.log("Document data:", doc.data());
-    //         const {text, categories} = doc.data();
-    //
-    //         setRandomArticle({title: randomTitle, text, categories})
-    //       } else {
-    //         console.log("No such document!");
-    //       }
-    //     });
-    //   setCategoriesNumber(Object.keys(categories).length);
-    //   setArticlesList(Object.keys(titles))
-    // });
-    const {articles, categories} = test;
+    database.ref('/').once('value').then(function (snapshot) {
+      const {articles, categories} = snapshot.val();
+      const {titles, count} = articles;
+      const titlesList = Object.keys(titles);
+      const randomTitle = titlesList[Math.floor(Math.random() * titlesList.length)];
+
+      db.collection("articles")
+        .doc(randomTitle)
+        .get()
+        .then(function (doc) {
+          if (doc.exists) {
+            console.log("Document data:", doc.data());
+            const {text, categories} = doc.data();
+
+            setRandomArticle({title: randomTitle, text, categories})
+          } else {
+            console.log("No such document!");
+          }
+        });
+      setCategories(categories);
+      setArticlesList(Object.keys(titles))
+    });
+    // const {articles, categories} = test;
     // debugger;
-    setArticlesList(Object.keys(articles.titles));
-    setCategoriesNumber(Object.keys(categories).length)
-    setCategories(categories)
+    // setArticlesList(Object.keys(articles.titles));
+    // setCategories(categories);
     // const categories = {};
     // const result = [];
     // const articles = {};
@@ -190,10 +127,8 @@ const Home = () => {
       </Row>
       {randomArticle &&
       <Row>
-        <Col>
           <p><b>Випадкова стаття</b></p>
-        </Col>
-        <Col>
+        <Col xs="12" sm="6" style={{margin: "0 auto"}}>
           <ArticleComponent
             {...randomArticle}
           />
@@ -213,46 +148,11 @@ const Home = () => {
         </Col>
       </Row>
       <Row>
-        <Col xs="12" sm="6" lg="6">
-          <Card style={{height: 500}}>
-            <CardHeader>
-              ТОП меметичних персон
-              <div className="card-header-actions">
-                <a href="http://www.chartjs.org" className="card-header-action">
-                  <small className="text-muted">Приклад графіків</small>
-                </a>
-              </div>
-            </CardHeader>
-            <CardBody>
-              <div className="chart-wrapper">
-                <Bar data={bar} options={options} height={400}/>
-              </div>
-            </CardBody>
-          </Card>
-          <Col xs="12" sm="6" lg="6">
-            <Card>
-              <CardHeader>
-                Bar Chart
-                <div className="card-header-actions">
-                  <a href="http://www.chartjs.org" className="card-header-action">
-                    <small className="text-muted">docs</small>
-                  </a>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-wrapper">
-                  <Bar data={bar} options={options}/>
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" lg="6">
-            <HighchartsReact
-              highcharts={Highcharts}
-              options={periodsOptions}
-            />
-          </Col>
-        </Col>
+        <Analytics
+          categoriesList={categoriesList}
+          persons={persons}
+          events={events}
+        />
       </Row>
     </div>
   );

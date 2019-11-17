@@ -35,7 +35,7 @@ const Article = ({match}) => {
   return (
     <div className="animated fadeIn">
       <Row>
-        <Col xs="12" sm="6">
+        <Col xs="12" sm="6" style={{margin: "0 auto"}}>
           {data &&
           <ArticleComponent
             title={name}

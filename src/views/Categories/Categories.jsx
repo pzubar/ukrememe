@@ -12,23 +12,22 @@ const Categories = () => {
   const [newCategoryType, setNewCategoryType] = useState('');
 
   useEffect(() => {
-    // database.ref('/categories/').once('value').then((querySnapshot) => {
-    //   debugger;
-    //   const categories = {};
-    //   querySnapshot.forEach(function (childSnapshot) {
-    //     const name = childSnapshot.key;
-    //     const {count = 0, type} = childSnapshot.val();
-    //     const category = {name, count};
-    //
-    //     categories[type] = categories[type] ? [...categories[type], category] : [category];
-    //   });
-    //   debugger;
-    //   setIsLoaded(true);
-    //   setCategories(categories)
-    // })
-    //   .catch(function (error) {
-    //     console.log("Error getting documents: ", error);
-    //   });
+    database.ref('/categories/').once('value').then((querySnapshot) => {
+      const categories = {};
+      querySnapshot.forEach(function (childSnapshot) {
+        const name = childSnapshot.key;
+        const {count = 0, type} = childSnapshot.val();
+        const category = {name, count};
+
+        categories[type] = categories[type] ? [...categories[type], category] : [category];
+      });
+      debugger;
+      setIsLoaded(true);
+      setCategories(categories)
+    })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
   }, []);
 
   const onSaveButtonClick = () => {
