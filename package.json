@@ -28,7 +28,7 @@
     "firebase": "7.1.0",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
-    "highcharts": "^7.2.0",
+    "highcharts": "^9.0.0",
     "highcharts-react-official": "^2.2.2",
     "html-to-draftjs": "^1.4.0",
     "node-sass": "^4.12.0",
